@@ -45,8 +45,12 @@ class Woman extends Human {
     this.lovedBy;
   }
 
+  getOneLovedBy(lovedBy) {
+    this.lovedBy = lovedBy;
+  }
+
   beLoved() {
-    return `I'm happy to be loved by ${this.lovedBy == this.name ? 'myself' : this.lovedBy}.`;
+    return `I'm happy to be loved by ${this.lovedBy === this.getName() ? 'myself' : this.lovedBy}.`;
   }
 
   introduce() {
@@ -127,15 +131,15 @@ class World {
     this.inhabitants = [];
   }
 
-  gotNewInhabitants() {
+  getNewInhabitants() {
     this.inhabitants.push(...arguments);
   }
 
-  randomInhabitant() {
-    return this.inhabitants[Math.floor(Math.random() * (this.inhabitants.length))].name;
+  getRandomInhabitantName() {
+    return this.inhabitants[Math.floor(Math.random() * (this.inhabitants.length))].getName();
   }
 
-  worldOverview() {
+  overview() {
     print(`Welcome to my hidden universe ${this.name}!
 It's not empty. Here are its creatures.`);
     this.inhabitants.forEach(inhabitant => print(`${inhabitant.getName()}: ${inhabitant.introduce()}`));
@@ -152,7 +156,7 @@ const easy = new Dog('Easy', 2, 'female');
 const catWoman = new CatWoman('Selina', 'Kyle', 21, 'I\'m cat!');
 
 const notEarth = new World('KindaEarth');
-notEarth.gotNewInhabitants(alien, alex, johnny, love, ratatouille, roxy, easy, catWoman);
-love.lovedBy = notEarth.randomInhabitant();
-catWoman.lovedBy = notEarth.randomInhabitant();
-notEarth.worldOverview();
+notEarth.getNewInhabitants(alien, alex, johnny, love, ratatouille, roxy, easy, catWoman);
+love.getOneLovedBy(notEarth.getRandomInhabitantName());
+catWoman.getOneLovedBy(notEarth.getRandomInhabitantName());
+notEarth.overview();
